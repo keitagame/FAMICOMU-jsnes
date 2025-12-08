@@ -7771,6 +7771,9 @@ document.addEventListener('keydown', (event) => {
         lastFpsTime = lastTime;
 
       startBtn.addEventListener("click", () => {
+        if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
         try {
          
 
