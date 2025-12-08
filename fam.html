@@ -7755,9 +7755,11 @@ document.addEventListener('keydown', (event) => {
         case 'Shift': nes.buttonUp(1, Controller.BUTTON_SELECT); break;
       }
     });
+    let i = 0;
       romInput.addEventListener("change", async (e) => {
         const f = e.target.files[0];
         if (!f) return;
+        i = 1;
         const buf = await f.arrayBuffer();
         romBytes = new Uint8Array(buf);
         status.textContent = `Loaded: ${f.name} (${romBytes.length} bytes)`;
@@ -7779,7 +7781,7 @@ document.addEventListener('keydown', (event) => {
     }
           nes.loadROM(binary);
           nes.frame();
-
+          i = 0;
           loop();
 
           status.textContent = "Running (skeleton)";
@@ -7790,13 +7792,15 @@ document.addEventListener('keydown', (event) => {
       });
 
       function loop() {
+       
   nes.frame();
 
    
   ctx.putImageData(canvasImage, 0, 0);
 
-
+if(i == 0){
   requestAnimationFrame(loop);
+}
 }
     </script>
   </body>
